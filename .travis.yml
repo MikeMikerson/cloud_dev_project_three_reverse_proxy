@@ -13,10 +13,9 @@ before_script:
 
 script:
   - docker --version
-  - docker build -t reverse-proxy .
-  - docker tag reverse-proxy simplicitydevs/reverse-proxy:latest
+  - docker build -t simplicitydevs/reverse-proxy .
 
 after_success:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$simplicitydevs" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "simplicitydevs" --password-stdin
   - docker push simplicitydevs/reverse-proxy
 
