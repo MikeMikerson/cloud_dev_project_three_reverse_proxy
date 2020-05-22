@@ -5,7 +5,7 @@ metadata:
     service: reverseproxy
   name: reverseproxy
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -24,6 +24,32 @@ spec:
             cpu: "500m"       
         ports:
         - containerPort: 8080
+      - image: simplicitydevs/user-api
+        name: user-api
+        imagePullPolicy: Always 
+      - image: simplicitydevs/feed-api
+        name: feed-api
+        imagePullPolicy: Always 
+      - image: simplicitydevs/ionic-front
+        name: ionic-front
+        imagePullPolicy: Always 
+        env:
+          - name: POSTGRES_USERNAME
+            value: "mike"
+          - name: POSTGRES_PASSWORD
+            value: "ikimasen2"
+          - name: POSTGRES_HOST
+            value: "mikethree.cdcwfnslg02z.us-east-2.rds.amazonaws.com"
+          - name: POSTGRES_DB
+            value: "postgres"
+          - name: AWS_BUCKET
+            value: "cloud-developer-project-three"
+          - name: AWS_REGION
+            value: "us-east-2"
+          - name: AWS_PROFILE
+            value: "default"
+          - name: JWT_SECRET
+            value: "secret"
+          - name: URL
+            value: "http://localhost:8100"
       restartPolicy: Always
-
-
